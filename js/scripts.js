@@ -6,6 +6,62 @@
 //
 // Scripts
 // 
+// Speichert die Abstimmungsergebnisse
+let voteCounts = {
+    "Martin Luther King Jr.": 0,
+    "Malcolm X": 0,
+    "Rosa Parks": 0,
+    "Nelson Mandela": 0,
+    "Maya Angelou": 0
+};
+
+// Prüft, ob "Andere" ausgewählt wurde
+function checkOtherPersonality() {
+    var selectBox = document.getElementById("voteSelect");
+    var otherDiv = document.getElementById("otherPersonalityDiv");
+    var selectedValue = selectBox.value;
+
+    if (selectedValue === "Andere") {
+        otherDiv.style.display = "block";
+    } else {
+        otherDiv.style.display = "none";
+    }
+}
+function submitComment() {
+    const commentInput = document.getElementById("commentInput");
+    const commentList = document.getElementById("commentList");
+
+    if (commentInput.value.trim() !== "") {
+        const li = document.createElement("li");
+        li.classList.add("list-group-item");
+        li.textContent = commentInput.value;
+        commentList.appendChild(li);
+        commentInput.value = ""; // Eingabefeld leeren
+    }
+}
+
+
+// Funktion für das Abstimmen
+function submitVote() {
+    var selectedPersonality = document.getElementById("voteSelect").value;
+    var otherPersonality = document.getElementById("otherPersonality").value.trim();
+
+    if (selectedPersonality === "Andere" && otherPersonality !== "") {
+        if (!voteCounts[otherPersonality]) {
+            voteCounts[otherPersonality] = 0;
+        }
+        voteCounts[otherPersonality]++;
+    } else if (selectedPersonality && selectedPersonality !== "Andere") {
+        voteCounts[selectedPersonality]++;
+    } else {
+        alert("Bitte wähle eine Person oder gib einen Namen ein.");
+        return;
+    }
+
+    updateVoteResults();
+}
+
+// Funktion zur Aktualisierung der Ergebnisse
 function updateVoteResults() {
     var resultsList = document.getElementById("voteResults");
     resultsList.innerHTML = "";
