@@ -7,10 +7,7 @@
 // Scripts
 // 
 // Speichert die Abstimmungsergebnisse
-setTimeout (function () {
-    var splashScreen = document.getElementById('splash-screen')
-    splashScreen.style.display = 'none';
-  }, 1600);
+
   
 let voteCounts = {
     "Martin Luther King Jr.": 0,
